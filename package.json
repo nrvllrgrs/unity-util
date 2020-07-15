@@ -4,9 +4,6 @@
   "version": "1.0.0",
   "description": "Unity utility methods and extensions",
   "author": "Chad M Kilgore",
-  "contributors": [{
-  "name": "nrvllrgrs"
-}],
   "unity": "2019.3",
   "repository": {
   "type": "git",
@@ -19,5 +16,5 @@
   "Unity3D",
   "Unity",
 ], 
-  "license": "BSD3"
+  "license": "MIT"
 }
