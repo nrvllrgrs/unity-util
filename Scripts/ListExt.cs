@@ -28,7 +28,7 @@ public static class ListExt
 	{
 		for (int i = list.Count() - 1; i >= 0; --i)
 		{
-			GameObjectUtil.Destroy(list.ElementAt(i));
+			Object.Destroy(list.ElementAt(i));
 		}
 	}
 
