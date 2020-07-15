@@ -214,68 +214,6 @@ public static class GameObjectExt
 		childrenObjects.SetActive(isActive);
 	}
 
-	public static void Show(this GameObject obj)
-	{
-		obj.Show(true, false);
-	}
-
-	public static void ForceShow(this GameObject obj)
-	{
-		obj.Show(true, true);
-	}
-
-	public static void Hide(this GameObject obj)
-	{
-		obj.Show(false, false);
-	}
-
-	public static void ForceHide(this GameObject obj)
-	{
-		obj.Show(false, true);
-	}
-
-	private static void Show(this GameObject obj, bool isShown, bool force)
-	{
-		// Hide hand controller
-		var rendererControl = obj.GetComponent<RendererControl>();
-		if (rendererControl != null)
-		{
-			if (isShown)
-			{
-				if (force)
-				{
-					rendererControl.ForceShow();
-				}
-				else
-				{
-					rendererControl.Show();
-				}
-			}
-			else
-			{
-				if (force)
-				{
-					rendererControl.ForceHide();
-				}
-				else
-				{
-					rendererControl.Hide();
-				}
-			}
-		}
-	}
-
-	public static bool IsShowing(this GameObject obj)
-	{
-		var rendererControl = obj.GetComponent<RendererControl>();
-		if (rendererControl != null)
-		{
-			return rendererControl.showing;
-		}
-
-		return obj.activeInHierarchy;
-	}
-
 	public static void AddEvent(this EventTrigger trigger, EventTriggerType triggerType, System.Action<BaseEventData> action)
 	{
 		var entry = new EventTrigger.Entry()
