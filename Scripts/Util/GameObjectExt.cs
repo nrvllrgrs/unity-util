@@ -281,12 +281,11 @@ public static class GameObjectExt
 
 	public static bool TryGetRendererBounds(this GameObject gameObject, out Bounds bounds)
 	{
+		bounds = new Bounds(Vector3.zero, Vector3.zero);
+		
 		var renderers = gameObject.GetComponentsInChildren<Renderer>();
 		if (renderers.Length == 0)
-		{
-			bounds = new Bounds(Vector3.zero, Vector3.zero);
 			return false;
-		}
 		
 		bool first = true;
 		foreach (var renderer in renderers)
