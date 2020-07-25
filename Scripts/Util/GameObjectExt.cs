@@ -294,7 +294,7 @@ public static class GameObjectExt
 				renderer.bounds.size.x,
 				renderer.bounds.size.y,
 				renderer.bounds.size.z);
-			size.Scale(renderer.transform.localScale);
+			size.Scale(renderer.transform.lossyScale);
 			
 			// Create new bounds with scaled bounds
 			Bounds t = new Bounds(renderer.bounds.center, size);
