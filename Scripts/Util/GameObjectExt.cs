@@ -279,51 +279,32 @@ public static class GameObjectExt
 		SceneManager.MoveGameObjectToScene(obj, scene);
 	}
 
-	public static Bounds GetRendererBounds(this GameObject gameObject)
+	public static bool TryGetRendererBounds(this GameObject gameObject, out Bounds bounds)
 	{
-		// Remember current position / rotation
-		Vector3 position = gameObject.transform.position;
-		Quaternion rotation = gameObject.transform.rotation;
-
-		// Set position / rotation for bounds calculation
-		gameObject.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-
-		float minX = Mathf.Infinity, minY = Mathf.Infinity, minZ = Mathf.Infinity;
-		float maxX = Mathf.NegativeInfinity, maxY = Mathf.NegativeInfinity, maxZ = Mathf.NegativeInfinity;
-
-		foreach (var meshFilter in gameObject.GetComponentsInChildren<SkinnedMeshRenderer>())
+		var renderers = GetComponentsInChildren<Renderer>();
+		if (renderers.Length == 0)
 		{
-			var verts = meshFilter.sharedMesh.vertices.Select(v => meshFilter.transform.rotation * v);
-			var xVerts = verts.Select(x => x.x);
-			var yVerts = verts.Select(x => x.y);
-			var zVerts = verts.Select(x => x.z);
-
-			// Min verts
-			minX = Mathf.Min(new float[] { minX }.Concat(xVerts).ToArray());
-			minY = Mathf.Min(new float[] { minY }.Concat(yVerts).ToArray());
-			minZ = Mathf.Min(new float[] { minZ }.Concat(zVerts).ToArray());
-
-			// Max verts
-			maxX = Mathf.Max(new float[] { maxX }.Concat(xVerts).ToArray());
-			maxY = Mathf.Max(new float[] { maxY }.Concat(yVerts).ToArray());
-			maxZ = Mathf.Max(new float[] { maxZ }.Concat(zVerts).ToArray());
+			bounds = new Bounds(Vector3.zero, Vector3.zero);
+			return false;
+		}
+		
+		Bounds bounds;
+		bool first = true;
+		
+		foreach (var renderer in renderers)
+		{
+			if (!first)
+			{
+				first = false;
+				bounds = new Bounds(renderer.bounds.center, renderer.bounds.size);
+			}
+			else
+			{
+				bounds.Encapsulate(renderer.bounds);
+			}
 		}
 
-		Bounds bounds = new Bounds();
-		bounds.center = new Vector3(
-			(minX + maxX) / 2f,
-			(minY + maxY) / 2f,
-			(minZ + maxZ) / 2f);
-
-		bounds.extents = new Vector3(
-			maxX - minX,
-			maxY - minY,
-			maxZ - minZ);
-
-		// Restore previous position / rotation
-		gameObject.transform.SetPositionAndRotation(position, rotation);
-
-		return bounds;
+		return true;
 	}
 
 	public static Bounds GetColliderBounds(this GameObject gameObject)
