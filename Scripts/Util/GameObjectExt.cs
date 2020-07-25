@@ -281,7 +281,7 @@ public static class GameObjectExt
 
 	public static bool TryGetRendererBounds(this GameObject gameObject, out Bounds bounds)
 	{
-		var renderers = GetComponentsInChildren<Renderer>();
+		var renderers = gameObject.GetComponentsInChildren<Renderer>();
 		if (renderers.Length == 0)
 		{
 			bounds = new Bounds(Vector3.zero, Vector3.zero);
