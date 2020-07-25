@@ -290,14 +290,23 @@ public static class GameObjectExt
 		bool first = true;
 		foreach (var renderer in renderers)
 		{
+			Vector3 size = new Vector3(
+				renderer.bounds.size.x,
+				renderer.bounds.size.y,
+				renderer.bounds.size.z);
+			size.Scale(renderer.transform.localScale);
+			
+			// Create new bounds with scaled bounds
+			Bounds t = new Bounds(renderer.bounds.center, size);
+			
 			if (!first)
 			{
 				first = false;
-				bounds = new Bounds(renderer.bounds.center, renderer.bounds.size);
+				bounds = t;
 			}
 			else
 			{
-				bounds.Encapsulate(renderer.bounds);
+				bounds.Encapsulate(t);
 			}
 		}
 
