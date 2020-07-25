@@ -288,9 +288,7 @@ public static class GameObjectExt
 			return false;
 		}
 		
-		Bounds bounds;
 		bool first = true;
-		
 		foreach (var renderer in renderers)
 		{
 			if (!first)
