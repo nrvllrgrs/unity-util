@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Ludiq;
 
-[IncludeInSettings(true)]
 public static class Vector3Ext
 {
 	public static float SqrDistance(this Vector3 a, Vector3 b)
