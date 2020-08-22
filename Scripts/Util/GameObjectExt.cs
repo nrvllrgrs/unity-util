@@ -279,7 +279,7 @@ public static class GameObjectExt
 		SceneManager.MoveGameObjectToScene(obj, scene);
 	}
 
-	public static bool TryGetRendererBounds(this GameObject gameObject, out Bounds bounds)
+	public static bool TryGetRendererBounds(this GameObject gameObject, out Bounds bounds, Space space = Space.World)
 	{
 		bounds = new Bounds(Vector3.zero, Vector3.zero);
 		
@@ -299,7 +299,7 @@ public static class GameObjectExt
 			// Create new bounds with scaled bounds
 			Bounds t = new Bounds(renderer.bounds.center, size);
 			
-			if (!first)
+			if (first)
 			{
 				first = false;
 				bounds = t;
@@ -308,6 +308,11 @@ public static class GameObjectExt
 			{
 				bounds.Encapsulate(t);
 			}
+		}
+
+		if (space == Space.Self)
+		{
+			bounds.center -= gameObject.transform.position;
 		}
 
 		return true;

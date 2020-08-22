@@ -1,7 +1,7 @@
 {
   "name": "com.unity.util",
   "displayName": "Unity Utilities",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Unity utility methods and extensions",
   "author": "Chad M Kilgore",
   "unity": "2019.3",
