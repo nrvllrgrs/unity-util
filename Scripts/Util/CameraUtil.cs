@@ -28,11 +28,20 @@ public static class CameraUtil
 
 	#region Methods
 
+	public static Vector3 GetViewPosition(this Camera camera, Bounds bounds)
+	{
+		if (!camera.orthographic)
+		{
+			return bounds.center - camera.GetViewDistance(bounds) * camera.transform.forward;
+		}
+		return Vector3.zero;
+	}
+
 	public static void View(this Camera camera, Bounds bounds)
 	{
 		if (!camera.orthographic)
 		{
-			camera.transform.position = bounds.center - camera.GetViewDistance(bounds) * camera.transform.forward;
+			camera.transform.position = camera.GetViewPosition(bounds);
 		}
 	}
 
