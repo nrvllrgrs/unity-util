@@ -290,11 +290,11 @@ public static class GameObjectExt
 		bool first = true;
 		foreach (var renderer in renderers)
 		{
+			// Transform scale automatically included
 			Vector3 size = new Vector3(
 				renderer.bounds.size.x,
 				renderer.bounds.size.y,
 				renderer.bounds.size.z);
-			size.Scale(renderer.transform.lossyScale);
 			
 			// Create new bounds with scaled bounds
 			Bounds t = new Bounds(renderer.bounds.center, size);
